@@ -3,7 +3,7 @@
 
     angular.module('app.core', [
         'ngRoute',
-        'blocks.router'
+        'blocks.router', 'blocks.authentification'
     ]);
 
 })();

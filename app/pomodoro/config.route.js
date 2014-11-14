@@ -5,13 +5,13 @@
         .module('app.pomodoro')
         .run(appRun);
 
-    appRun.$inject = ['routehelper'];
+    appRun.$inject = ['routehelper','trelloAuthentification'];
 
-    function appRun(routehelper) {
-        routehelper.configureRoutes(getRoutes());
+    function appRun(routehelper, trelloAuthentification) {
+        routehelper.configureRoutes(getRoutes(routehelper, trelloAuthentification));
     }
 
-    function getRoutes() {
+    function getRoutes(routehelper, trelloAuthentification) {
         return [
             {
                 url : '/pomodoro',
@@ -19,7 +19,17 @@
                     templateUrl :'app/pomodoro/pomodoro.html',
                     controller : 'Pomodoro',
                     controllerAs : 'vm',
-                    title : 'pomodoro'
+                    title : 'pomodoro',
+                    resolve : {
+                        userConnected : function() {
+                            return trelloAuthentification.isAuthorized().then(
+                                function(data) {},
+                                function(error) {
+                                    routehelper.$location.path('/login');
+                                }
+                            )
+                        }
+                    }
                 }
             }
         ]

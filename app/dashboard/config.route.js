@@ -5,13 +5,13 @@
         .module('app.dashboard')
         .run(appRun);
 
-    appRun.$inject = ['routehelper'];
+    appRun.$inject = ['routehelper', 'trelloAuthentification'];
 
-    function appRun(routehelper) {
-        routehelper.configureRoutes(getRoutes());
+    function appRun(routehelper, trelloAuthentification) {
+        routehelper.configureRoutes(getRoutes(routehelper, trelloAuthentification));
     }
 
-    function getRoutes() {
+    function getRoutes(routehelper, trelloAuthentification) {
         return [
             {
                 url : '/',
@@ -19,7 +19,17 @@
                     templateUrl :'app/dashboard/dashboard.html',
                     controller : 'Dashboard',
                     controllerAs : 'vm',
-                    title : 'dashboard'
+                    title : 'dashboard',
+                    resolve : {
+                        userConnected : function() {
+                            return trelloAuthentification.isAuthorized().then(
+                                function(data) {},
+                                function(error) {
+                                    routehelper.$location.path('/login');
+                                }
+                            )
+                        }
+                    }
                 }
             }
         ]

@@ -5,7 +5,11 @@
         .module('app.dashboard')
         .controller('Dashboard', Dashboard);
 
-    function Dashboard() {
+    Dashboard.$inject = ['trelloAuthentification'];
+
+    function Dashboard(trelloAuthentification) {
         var vm = this;
+
+        vm.user = trelloAuthentification.getUser();
     }
 })();

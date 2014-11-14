@@ -34,7 +34,8 @@
         var service = {
             configureRoutes : configureRoutes,
             getRoutes : getRoutes,
-            routeCounts : routeCounts
+            routeCounts : routeCounts,
+            $location : $location
         };
 
         init();
