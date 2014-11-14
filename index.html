@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+<head lang="fr">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <div data-ng-view></div>
+
+    <!-- vendors -->
+    <script src="bower_components/angularjs/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+
+    <!-- main module -->
+    <script src="app/app.module.js"></script>
+
+    <!-- reusable blocks/modules -->
+    <script src="app/blocks/router/router.module.js"></script>
+    <script src="app/blocks/router/routehelper.js"></script>
+
+    <!-- core modules -->
+    <script src="app/core/core.module.js"></script>
+    <script src="app/core/config.js"></script>
+
+    <!-- dashboard module -->
+    <script src="app/dashboard/dashboard.module.js"></script>
+    <script src="app/dashboard/config.route.js"></script>
+    <script src="app/dashboard/dashboard.js"></script>
+
+    <!-- pomodoro module -->
+    <script src="app/pomodoro/pomodoro.module.js"></script>
+    <script src="app/pomodoro/config.route.js"></script>
+    <script src="app/pomodoro/pomodoro.js"></script>
+
+</body>
+</html>

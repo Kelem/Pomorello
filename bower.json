@@ -1,0 +1,21 @@
+{
+  "name": "Pomorello",
+  "version": "0.0.1",
+  "description": "Integration entre Trello et la methode Pomodoro",
+  "keywords": [
+    "trello",
+    "pomodoro",
+    "angularjs"
+  ],
+  "authors": [
+    "Cedric Deturche"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
