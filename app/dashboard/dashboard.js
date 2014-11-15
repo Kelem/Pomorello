@@ -12,10 +12,10 @@
 
         vm.user = trelloAuthentification.getUser();
         vm.boards = [];
-        vm.getBoards = getBoards;
+        vm.getBoardsWithCards = getBoardsWithCards;
 
-        function getBoards() {
-            return trelloDataservice.getBoards().then(
+        function getBoardsWithCards() {
+            return trelloDataservice.getBoardsWithCards().then(
                 function(data) {
                     vm.boards = data;
                     return vm.boards;

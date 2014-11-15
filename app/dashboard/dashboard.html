@@ -2,7 +2,7 @@
 
 {{vm.user.fullName}}
 
-<button ng-click="vm.getBoards()">Get boards</button>
+<button ng-click="vm.getBoardsWithCards()">Get boards</button>
 
 <div ng-repeat="board in vm.boards | orderBy : 'name' | filter : {closed : false}">
     <h1>{{board.name}}</h1>

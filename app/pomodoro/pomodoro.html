@@ -1,3 +1,15 @@
 <h1>Pomodoro</h1>
 
+<h2>Liste des boards</h2>
+
+<ul>
+    <li ng-repeat="board in vm.boards | orderBy : 'name' | filter : {closed : false}">{{board.name}}</li>
+</ul>
+
+<select ng-model="vm.selectedBoard" ng-options="board.name for board in vm.boards"></select><br/><br/>
+
 <button ng-click="vm.createCheckList()">Dummy</button>
+
+<ul>
+    <li ng-repeat="card in vm.selectedBoard.cards">{{card.name}}</li>
+</ul>
