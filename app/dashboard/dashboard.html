@@ -1,3 +1,13 @@
 <h1>Dashboard</h1>
 
 {{vm.user.fullName}}
+
+<button ng-click="vm.getBoards()">Get boards</button>
+
+<div ng-repeat="board in vm.boards | orderBy : 'name' | filter : {closed : false}">
+    <h1>{{board.name}}</h1>
+    <ul>
+        <li ng-repeat="card in board.cards">{{card.name}}</li>
+    </ul>
+</div>
+<hr/>
