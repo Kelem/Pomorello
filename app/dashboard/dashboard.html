@@ -7,7 +7,7 @@
 <div ng-repeat="board in vm.boards | orderBy : 'name' | filter : {closed : false}">
     <h1>{{board.name}}</h1>
     <ul>
-        <li ng-repeat="card in board.cards">{{card.name}}</li>
+        <li ng-repeat="card in board.cards">{{card.id + ' - ' + card.name}}</li>
     </ul>
 </div>
 <hr/>
