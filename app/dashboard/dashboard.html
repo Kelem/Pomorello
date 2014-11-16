@@ -1,13 +1,22 @@
-<h1>Dashboard</h1>
+<h1 style="text-align: center">Dashboard</h1>
 
-{{vm.user.fullName}}
+<div layout="horizontal" layout-align="start center">
+    <h2>Bienvenue {{vm.user.fullName}}</h2>
 
-<button ng-click="vm.getBoardsWithCards()">Get boards</button>
+    <div>
+        <md-button class="md-raised md-primary" ng-click="vm.getBoardsWithCards()">Obtenir les données</md-button>
+    </div>
+</div>
+
 
 <div ng-repeat="board in vm.boards | orderBy : 'name' | filter : {closed : false}">
-    <h1>{{board.name}}</h1>
-    <ul>
-        <li ng-repeat="card in board.cards">{{card.id + ' - ' + card.name}}</li>
-    </ul>
+    <h3>{{board.name}}</h3>
+    <table>
+        <tbody>
+            <tr ng-repeat="card in board.cards">
+                <td>{{card.name}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <md-divider ng-if="vm.boards"></md-divider>
 </div>
-<hr/>

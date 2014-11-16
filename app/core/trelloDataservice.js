@@ -9,6 +9,7 @@
 
     function trelloDataservice($q) {
         var boardsWithCards = {};
+        var cacheHttpRequestDelayInMinutes = 5;
 
         var service = {
             getBoardsWithCards: getBoardsWithCards,
@@ -17,26 +18,18 @@
 
         return service;
 
-
         function getBoardsWithCards() {
             var deferred = $q.defer();
-            var now = new Date();
             var lastUpdate = boardsWithCards.lastUpdate;
 
             if (lastUpdate) {
-                console.log('Now : ' + now);
-                console.log('LastUpdate : ' + lastUpdate);
-                var checkDate = lastUpdate.getTime() + 1 * 60000;
-                console.log('CheckDate : ' + new Date(checkDate));
-
-                if (checkDate > now) {
-                    console.log("I don't do a request");
+                if (!newHttpRequestRequired(cacheHttpRequestDelayInMinutes, lastUpdate)) {
                     deferred.resolve(boardsWithCards.boards);
                     return deferred.promise;
                 }
             }
 
-            console.log('HttpRequest');
+            console.log('Refresh datas');
 
             Trello.get("members/me/boards", { organizations: 'all'}, function (boards) {
                 var memberBoards = [];
@@ -79,7 +72,8 @@
 
             if (!hasPomorellos)
                 Trello.post(apiCheckList, {name: 'Pomorellos'}, function (data) {
-                    console.log('Creation OK');
+                    console.log('Checklist created');
+                    console.log(data);
                 })
         });
     }
@@ -100,6 +94,13 @@
             id: trelloCard.id,
             name: trelloCard.name
         }
+    }
+
+    function newHttpRequestRequired(delay, lastUpdate) {
+        var now = new Date();
+        var checkDate = lastUpdate.getTime() + delay * 60000;
+
+        return checkDate < now;
     }
 })
 ();

@@ -2,43 +2,54 @@
 <html data-ng-app="app">
 <head lang="fr">
     <meta charset="UTF-8">
-    <title></title>
+    <title data-ng-bind="title"></title>
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="bower_components/angular-material/themes/green-theme.css">
+    <link rel="stylesheet" href="bower_components/angular-material/themes/indigo-theme.css">
+    <link rel="stylesheet" href="assets/pomorello.css">
 </head>
 <body>
 
+<md-content md-theme="green">
     <div data-ng-view></div>
+</md-content>
 
-    <!-- vendors -->
-    <script src="bower_components/angularjs/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="https://api.trello.com/1/client.js?key=ff3a4b30849f0a212ae8afbf46c0ee75"></script>
+<!-- vendors -->
+<script src="bower_components/angularjs/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/hammerjs/hammer.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
 
-    <!-- main module -->
-    <script src="app/app.module.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="https://api.trello.com/1/client.js?key=ff3a4b30849f0a212ae8afbf46c0ee75"></script>
 
-    <!-- reusable blocks/modules -->
-    <script src="app/blocks/router/router.module.js"></script>
-    <script src="app/blocks/router/routehelper.js"></script>
-    <script src="app/blocks/authentification/authentification.module.js"></script>
-    <script src="app/blocks/authentification/trelloAuthentification.js"></script>
-    <script src="app/blocks/authentification/config.route.js"></script>
-    <script src="app/blocks/authentification/authentification.js"></script>
+<!-- main module -->
+<script src="app/app.module.js"></script>
 
-    <!-- core modules -->
-    <script src="app/core/core.module.js"></script>
-    <script src="app/core/config.js"></script>
-    <script src="app/core/trelloDataservice.js"></script>
+<!-- reusable blocks/modules -->
+<script src="app/blocks/router/router.module.js"></script>
+<script src="app/blocks/router/routehelper.js"></script>
+<script src="app/blocks/authentification/authentification.module.js"></script>
+<script src="app/blocks/authentification/trelloAuthentification.js"></script>
+<script src="app/blocks/authentification/config.route.js"></script>
+<script src="app/blocks/authentification/authentification.js"></script>
 
-    <!-- dashboard module -->
-    <script src="app/dashboard/dashboard.module.js"></script>
-    <script src="app/dashboard/config.route.js"></script>
-    <script src="app/dashboard/dashboard.js"></script>
+<!-- core modules -->
+<script src="app/core/core.module.js"></script>
+<script src="app/core/config.js"></script>
+<script src="app/core/trelloDataservice.js"></script>
 
-    <!-- pomodoro module -->
-    <script src="app/pomodoro/pomodoro.module.js"></script>
-    <script src="app/pomodoro/config.route.js"></script>
-    <script src="app/pomodoro/pomodoro.js"></script>
+<!-- dashboard module -->
+<script src="app/dashboard/dashboard.module.js"></script>
+<script src="app/dashboard/config.route.js"></script>
+<script src="app/dashboard/dashboard.js"></script>
+
+<!-- pomodoro module -->
+<script src="app/pomodoro/pomodoro.module.js"></script>
+<script src="app/pomodoro/config.route.js"></script>
+<script src="app/pomodoro/pomodoro.js"></script>
 
 </body>
 </html>

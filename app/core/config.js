@@ -8,6 +8,6 @@
     function configure ($routeProvider, routehelperConfigProvider) {
         // Configure the common route provider
         routehelperConfigProvider.config.$routeProvider = $routeProvider;
-        routehelperConfigProvider.config.docTitle = 'Pomorello: ';
+        routehelperConfigProvider.config.docTitle = 'Pomorello : ';
     }
 })();

@@ -19,7 +19,7 @@
                     templateUrl :'app/pomodoro/pomodoro.html',
                     controller : 'Pomodoro',
                     controllerAs : 'vm',
-                    title : 'pomodoro',
+                    title : 'Pomodoro',
                     resolve : {
                         userConnected : function() {
                             return trelloAuthentification.isAuthorized().then(

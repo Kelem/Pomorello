@@ -6,7 +6,7 @@
     <li ng-repeat="board in vm.boards | orderBy : 'name' | filter : {closed : false}">{{board.name}}</li>
 </ul>
 
-<select ng-model="vm.selectedBoard" ng-options="board.name for board in vm.boards"></select><br/><br/>
+<select ng-model="vm.selectedBoard" ng-options="board.name for board in vm.boards | orderBy : 'name' | filter : {closed : false}"></select><br/><br/>
 
 <button ng-click="vm.createCheckList()">Dummy</button>
 

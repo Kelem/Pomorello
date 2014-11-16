@@ -19,7 +19,7 @@
                     templateUrl :'app/dashboard/dashboard.html',
                     controller : 'Dashboard',
                     controllerAs : 'vm',
-                    title : 'dashboard',
+                    title : 'Dashboard',
                     resolve : {
                         userConnected : function() {
                             return trelloAuthentification.isAuthorized().then(

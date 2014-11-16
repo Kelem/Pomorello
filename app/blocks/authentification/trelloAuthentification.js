@@ -24,8 +24,7 @@
                 Trello.authorize({
                     interactive: false,
                     success: function () {
-                        Trello.members.get("me", function (member) {
-                            user = member;
+                        getMe(function () {
                             deferred.resolve(user);
                         })
                     },
@@ -45,17 +44,23 @@
                 type: 'popup',
                 name: 'Pomorello',
                 success: function () {
-                    Trello.members.get("me", function (member) {
-                        user = member;
+                    getMe(function () {
                         routehelper.$location.path("/");
                         $rootScope.$apply();
-                    });
+                    })
                 },
-                interactive : true,
+                interactive: true,
                 scope: {
                     write: true,
                     read: true
                 }
+            });
+        }
+
+        function getMe(closure) {
+            Trello.members.get("me", function (member) {
+                user = member;
+                closure();
             });
         }
 

@@ -19,7 +19,7 @@
                     templateUrl :'app/blocks/authentification/authentification.html',
                     controller : 'Authentification',
                     controllerAs : 'vm',
-                    title : 'login'
+                    title : 'Login'
                 }
             }
         ]
