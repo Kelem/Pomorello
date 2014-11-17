@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -10,9 +10,11 @@
     function Pomodoro(trelloDataservice) {
         var vm = this;
 
-        vm.createCheckList = createCheckList;
         vm.boards = [];
         vm.selectedBoard = {};
+        vm.selectedList = {};
+        vm.createCheckList = createCheckList;
+        vm.loadLists = loadLists;
 
         init();
 
@@ -26,11 +28,19 @@
 
         function getBoardsWithCards() {
             return trelloDataservice.getBoardsWithCards().then(
-                function(data) {
+                function (data) {
                     vm.boards = data;
                     return vm.boards;
                 }
             );
+        }
+
+        function loadLists(board) {
+            if (!board.lists)
+                trelloDataservice.getLists(board.id).then(
+                    function (data) {
+                        board.lists = data;
+                    });
         }
     }
 })();

@@ -13,7 +13,8 @@
 
         var service = {
             getBoardsWithCards: getBoardsWithCards,
-            createCheckList: createCheckList
+            createCheckList: createCheckList,
+            getLists : getLists
         }
 
         return service;
@@ -58,25 +59,43 @@
 
             return deferred.promise;
         }
-    }
 
-    function createCheckList(idCard) {
-        var hasPomorellos = false;
-        var apiCheckList = "cards/" + idCard + "/checklists";
+        function createCheckList(idCard) {
+            var hasPomorellos = false;
+            var apiCheckList = "cards/" + idCard + "/checklists";
 
-        Trello.get(apiCheckList, {fields: "name"}, function (checklists) {
-            $.each(checklists, function (index, checklist) {
-                if (checklist.name === "Pomorellos")
-                    hasPomorellos = true;
+            Trello.get(apiCheckList, {fields: "name"}, function (checklists) {
+                $.each(checklists, function (index, checklist) {
+                    if (checklist.name === "Pomorellos")
+                        hasPomorellos = true;
+                });
+
+                if (!hasPomorellos)
+                    Trello.post(apiCheckList, {name: 'Pomorellos'}, function (data) {
+                        console.log('Checklist created');
+                        console.log(data);
+                    })
+            });
+        }
+
+        function getLists(idBoard) {
+            var deferred = $q.defer();
+
+            Trello.get('boards/' + idBoard + '/lists', function(data) {
+                var lists =  [];
+
+                $.each(data, function(index, list) {
+                    lists.push(buildList(list));
+                });
+
+                deferred.resolve(lists);
             });
 
-            if (!hasPomorellos)
-                Trello.post(apiCheckList, {name: 'Pomorellos'}, function (data) {
-                    console.log('Checklist created');
-                    console.log(data);
-                })
-        });
+            return deferred.promise;
+        }
     }
+
+
 
     // Fonctions "privées"
 
@@ -92,7 +111,15 @@
     function buildCard(trelloCard) {
         return {
             id: trelloCard.id,
-            name: trelloCard.name
+            name: trelloCard.name,
+            idList: trelloCard.idList
+        }
+    }
+
+    function buildList(trelloList) {
+        return {
+            id : trelloList.id,
+            name : trelloList.name
         }
     }
 
