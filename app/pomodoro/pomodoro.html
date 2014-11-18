@@ -7,7 +7,7 @@
 </ul>
 
 <select ng-model="vm.selectedBoard"
-        ng-change="vm.loadLists(vm.selectedBoard)"
+        ng-change="vm.loadBoardDatas(vm.selectedBoard)"
         ng-options="board.name for board in vm.boards | orderBy : 'name' | filter : {closed : false}"></select>
 
 <select ng-model="vm.selectedList"
@@ -15,8 +15,6 @@
 
 <br/><br/>
 
-<button ng-click="vm.createCheckList()">Dummy</button>
-
 <ul>
-    <li ng-repeat="card in vm.selectedBoard.cards | filter : {idList : vm.selectedList.id}">{{card.name}}</li>
+    <li ng-repeat="card in vm.selectedBoard.cards | filter : {idList : vm.selectedList.id}">{{card.name}} - {{card.pomorellos.length}} - <button ng-click="vm.addPomorello(card)">Ajouter un pomorello</button></li>
 </ul>

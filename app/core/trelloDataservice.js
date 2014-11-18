@@ -13,8 +13,9 @@
 
         var service = {
             getBoardsWithCards: getBoardsWithCards,
-            createCheckList: createCheckList,
-            getLists : getLists
+            getLists: getLists,
+            getPomorellos: getPomorellos,
+            addPomorello: addPomorello
         }
 
         return service;
@@ -60,31 +61,35 @@
             return deferred.promise;
         }
 
-        function createCheckList(idCard) {
+        function getPomorelloChecklistId(idCard) {
+            var deferred = $q.defer();
             var hasPomorellos = false;
             var apiCheckList = "cards/" + idCard + "/checklists";
 
             Trello.get(apiCheckList, {fields: "name"}, function (checklists) {
                 $.each(checklists, function (index, checklist) {
-                    if (checklist.name === "Pomorellos")
+                    if (checklist.name === "Pomorellos") {
                         hasPomorellos = true;
+                        deferred.resolve(checklist.id);
+                    }
                 });
 
                 if (!hasPomorellos)
-                    Trello.post(apiCheckList, {name: 'Pomorellos'}, function (data) {
-                        console.log('Checklist created');
-                        console.log(data);
+                    Trello.post(apiCheckList, {name: 'Pomorellos'}, function (checklist) {
+                        deferred.resolve(checklist.id);
                     })
             });
+
+            return deferred.promise;
         }
 
         function getLists(idBoard) {
             var deferred = $q.defer();
 
-            Trello.get('boards/' + idBoard + '/lists', function(data) {
-                var lists =  [];
+            Trello.get('boards/' + idBoard + '/lists', function (data) {
+                var lists = [];
 
-                $.each(data, function(index, list) {
+                $.each(data, function (index, list) {
                     lists.push(buildList(list));
                 });
 
@@ -93,8 +98,51 @@
 
             return deferred.promise;
         }
-    }
 
+        function getPomorellos(idCard) {
+            var deferred = $q.defer();
+            var apiCheckList = "cards/" + idCard + "/checklists";
+            var hasPomorellos = false;
+
+            Trello.get(apiCheckList, {fields: "name"}, function (checklists) {
+                $.each(checklists, function (index, checklist) {
+                    if (checklist.name === "Pomorellos") {
+                        hasPomorellos = true;
+                        getPomorellosOnChecklist(checklist.id).then(function (data) {
+                            deferred.resolve(data);
+                        });
+                    }
+                });
+
+                if (!hasPomorellos)
+                    deferred.resolve([]);
+            });
+
+            return deferred.promise;
+        }
+
+        function getPomorellosOnChecklist(idCheckList) {
+            var deferred = $q.defer();
+
+            Trello.get("checklists/" + idCheckList + "/checkItems", function (data) {
+                deferred.resolve(data);
+            });
+
+            return deferred.promise;
+        }
+
+        function addPomorello(idCard, user) {
+            var deferred = $q.defer();
+
+            getPomorelloChecklistId(idCard).then(function (checklistId) {
+                Trello.post("checklists/" + checklistId + "/checkItems", {name: 'A pomorello - ' + new Date() + ' - ' + user.initials}, function (checkItem) {
+                    deferred.resolve();
+                });
+            });
+
+            return deferred.promise;
+        }
+    }
 
 
     // Fonctions "privées"
@@ -118,8 +166,8 @@
 
     function buildList(trelloList) {
         return {
-            id : trelloList.id,
-            name : trelloList.name
+            id: trelloList.id,
+            name: trelloList.name
         }
     }
 
@@ -129,5 +177,5 @@
 
         return checkDate < now;
     }
-})
-();
+
+})();
